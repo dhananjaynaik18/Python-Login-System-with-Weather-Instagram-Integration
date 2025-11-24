@@ -1,46 +1,65 @@
-Project Statement: Weather & Social Tracker
-1. Problem Statement
-I noticed that I often have to switch between different apps just to check basic things like the weather or my Instagram follower count. It feels inefficient to open a browser or mobile app for every small task.
+Python Login System (Weather + Instagram)
+Project Overview
+This is a command-line tool I built to practice backend logic in Python. It combines a secure login system with API integrations to fetch real-time data.
 
-My goal with this project is to build a simple "all-in-one" terminal tool. It combines a secure login system with a dashboard that pulls live weather data and Instagram stats, so I can see everything in one place using the command line.
+What it does:
 
-2. Project Scope
-This project focuses on backend logic and API integration using Python.
+User System: Allows users to Sign Up and Login. It saves credentials and login history locally using a JSON file (so data persists even after closing the program).
 
-What I will build:
+Weather: Fetches live temperature and conditions for any city using the OpenWeatherMap API.
 
-A user authentication system (Login/Sign up) to secure the app.
+Instagram Analytics: Uses the instaloader library to grab follower/following counts for public profiles.
 
-Data persistence using a JSON file to store user credentials safely.
+Features
+Persistent Storage: Uses users.json as a lightweight database to store user details.
 
-Integration with the OpenWeather API to fetch real-time temperature and conditions.
+Live Data: Connects to the internet to get real-time weather and social stats.
 
-Integration with the Instaloader library to fetch follower/following counts.
+Error Handling: I added checks for invalid passwords (limit of 2 attempts), wrong city names, and internet connection issues.
 
-A Command Line Interface (CLI) menu for easy navigation.
+Simple Interface: Runs entirely in the terminal with a menu-based navigation.
 
-What is NOT included (Limitations):
+Libraries Used
+requests (for calling the Weather API)
 
-No Graphical User Interface (GUI); it will run entirely in the terminal.
+instaloader (for scraping Instagram data)
 
-No complex databases (like SQL); I am using JSON for simplicity.
+json (built-in, for saving user data)
+Setup & Installation
+1. Install Dependencies You will need to install the external libraries first. Open your terminal and run:
 
-No mobile or web version.
+Bash
 
-3. Target Audience
-This tool is designed for:
+pip install requests instaloader
+2. Configure the Weather API You need a free API key from OpenWeatherMap for the weather feature to work.
 
-Students and beginners who want to see how APIs work in Python.
+Open main.py
 
-Developers who prefer using the terminal over opening web browsers.
+Find the line: API_KEY = "Place_Your_Key_Here"
 
-Anyone looking for a lightweight utility to check daily stats.
+Replace it with your actual key.
 
-4. Key Features
-Secure Login: Users can create an account and log in with a password.
+How to Run
+Clone or download this folder.
 
-Weather Checker: Users can type a city name to get the current weather description and temperature.
+Navigate to the folder in your terminal:
 
-Instagram Stats: Shows the user's current follower and following count.
+Bash
 
-JSON Storage: Automatically saves user data and login history to a local file.
+cd your-project-folder
+Run the script:
+
+Bash
+
+python main.py
+Known Issues / Notes
+Instagram Limitations: The instaloader library sometimes fails if you check too many profiles quickly because Instagram limits anonymous requests. If it fails, try again in a few minutes.
+
+Security: Currently, passwords are saved as plain text in the JSON file. In a real-world app, I would hash these for security.
+
+Future Plans
+Add a basic GUI using Tkinter so it's not just text-based.
+
+Implement password hashing to make it secure.
+
+Add an option to delete your account from the JSON file.
