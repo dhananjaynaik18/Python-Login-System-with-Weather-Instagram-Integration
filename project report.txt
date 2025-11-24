@@ -1,0 +1,193 @@
+PROJECT REPORT
+Python Login System with Weather & Instagram Integration
+1. Cover Page
+Project Title: Python Login System with Weather and Instagram Integration 
+Submitted By: Dhananjay Naik
+ Project Type: Python Mini Project Programming Language: Python 3.x Tools Used: VS Code, Command Line Interface (CLI), REST APIs Date: 23 November 2025
+
+2. Introduction
+For this mini-project, I developed a console-based application that functions as a secure dashboard. Instead of just building a standalone login system, I wanted to create something that actually performs useful tasks after the user logs in.
+
+Once authenticated, the system acts as a utility tool where users can:
+
+Securely log in or create a new account.
+
+Check real-time weather conditions for any city.
+
+Quickly fetch public analytics (followers/following) for Instagram profiles.
+
+The main goal was to learn how to connect different technologies—authentication logic, JSON file handling, and external APIs—into a single, working program.
+
+3. Problem Statement
+When learning Python, most tutorials focus on one thing at a time: either a login script OR a weather app. I noticed a lack of beginner-level projects that combine these elements into a unified "system."
+
+The challenge was to build a program that:
+
+Persists user data (so you don't lose your account when you close the app).
+
+Secures the entry point (Login).
+
+Integrates live data from the internet (Weather & Instagram).
+
+This project solves that by creating a modular system where authentication is the gateway to these features.
+
+4. Functional Requirements
+What the system actually does:
+
+User Management: Users can Sign Up (create an entry) and Log In.
+
+Data Persistence: It automatically saves and retrieves user credentials from a local users.json file.
+
+Session Tracking: It remembers and displays the exact time the user last logged in.
+
+Weather Module: It connects to the OpenWeatherMap API to fetch live temperature and humidity.
+
+Instagram Module: It uses the instaloader library to scrape basic profile stats.
+
+Security: It handles wrong passwords by giving the user limited retries before kicking them out.
+
+5. Non-Functional Requirements
+How the system behaves:
+
+Usability: The text menus are designed to be simple and easy to navigate using number options.
+
+Performance: API calls are optimized to fetch data quickly without freezing the terminal.
+
+Reliability: The program shouldn't crash if the user types a wrong city name or loses internet connection.
+
+Portability: Since it uses JSON and standard libraries, it runs on any computer with Python installed.
+
+6. System Architecture
+The flow of data is linear and user-driven.
+
+Plaintext
+
+[ User ]  --->  [ Login System ]  --->  [ JSON Database ]
+                      |
+                  (If Valid)
+                      |
+              [ Main Dashboard ]
+             /                  \
+    [ Weather API ]       [ Instagram Scraper ]
+           |                        |
+    (Returns Data)           (Returns Data)
+7. Design Diagrams
+7.1 Workflow Logic
+Start -> User is prompted to Login or Register.
+
+Verification -> System checks users.json.
+
+If New: Create record -> Save to JSON.
+
+If Existing: Verify Password.
+
+Dashboard -> User selects a service.
+
+Option 1: Input City -> Fetch Weather -> Display.
+
+Option 2: Input Username -> Fetch Stats -> Display.
+
+Exit -> User logs out -> System saves the timestamp.
+
+7.2 Sequence of Events
+User enters credentials.
+
+Main Program reads the JSON file.
+
+Logic compares the input string with the stored string.
+
+Success: The specific utility functions (weather_service, insta_service) are unlocked.
+
+8. Design Decisions & Rationale
+Why JSON instead of SQL? For a project of this size, setting up a MySQL server seemed like overkill. JSON is lightweight, human-readable, and requires no extra installation.
+
+Why OpenWeather API? It is reliable, free for small projects, and returns data in a clean JSON format that is easy to parse in Python.
+
+Why CLI (Command Line)? I wanted to focus strictly on backend logic and Python syntax without worrying about the complexities of UI libraries like Tkinter or PyQt yet.
+
+9. Implementation Details
+Core Libraries Used:
+
+json: To handle the reading and writing of the user database.
+
+requests: To send HTTP requests to the Weather API.
+
+instaloader: A specialized library to handle Instagram's complex data structure.
+
+datetime: To capture login timestamps.
+
+Key Functions:
+
+load_users(): Reads the database at startup so the program knows who is registered.
+
+login(): The main security gatekeeper.
+
+get_weather(city): Handles the API request and parses the response.
+
+10. Sample Output (Screenshots)
+Since this is a CLI project, here is a text representation of a successful session:
+
+Plaintext
+
+=== WELCOME TO PYTHON SYSTEM ===
+1. Login
+2. Register
+> 1
+
+Enter username: DHANANJAY
+Enter password: ****
+[SUCCESS] Welcome back, DHANANJAY!
+Last Login: 2025-11-22 14:30:00
+
+--- DASHBOARD ---
+1. Check Weather
+2. Instagram Stats
+3. Logout
+> 1
+
+Enter city: Bengaluru
+--------------------------
+Weather in Bengaluru:
+Temperature: 27°C
+Condition: Clear Sky
+--------------------------
+11. Testing Approach
+I performed manual testing to ensure the system is robust:
+
+Login Testing: I tried logging in with wrong passwords to ensure the "Access Denied" message appeared.
+
+Input Validation: I entered random numbers and symbols as city names to ensure the program caught the error instead of crashing.
+
+Data Check: I manually opened the users.json file after creating an account to verify the data was actually saved.
+
+12. Challenges Faced
+API Errors: Initially, if the internet was off, the program would crash with a generic error. I had to learn how to use try-except blocks to handle connection errors gracefully.
+
+Instaloader Limits: I realized that checking too many Instagram profiles too quickly causes Instagram to block requests. I had to handle this "429 Too Many Requests" error.
+
+JSON Formatting: Dealing with empty JSON files (when the first user registers) caused a crash. I added logic to check if the file exists before reading it.
+
+13. Learnings & Key Takeaways
+This project was a great learning experience. I specifically learned:
+
+How to parse JSON data from APIs (extracting just the temp/humidity from a massive block of text).
+
+The importance of Modular Programming—keeping the weather logic separate from the login logic made the code much easier to fix.
+
+How Authentication actually works behind the scenes (matching strings and updating records).
+
+14. Future Enhancements
+In the future, I plan to improve this by:
+
+Adding a GUI: Using Tkinter to make it look like a real desktop app.
+
+Password Hashing: Currently, passwords are plain text. I want to use the hashlib library to encrypt them for security.
+
+Profile Management: allowing users to change their passwords or delete their accounts.
+
+15. References
+Python Documentation: docs.python.org
+
+OpenWeatherMap API Docs: openweathermap.org
+
+Stack Overflow: For resolving the JSONDecodeError
